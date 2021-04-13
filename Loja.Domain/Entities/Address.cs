@@ -1,4 +1,4 @@
-namespace src.Loja.Domain.Entities
+namespace Loja.Domain.Entities
 {
     public class Address
     {
