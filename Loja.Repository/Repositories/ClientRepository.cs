@@ -15,7 +15,8 @@ namespace Loja.Repository.Repositories
         {
             _clientContext = clientContext;
         }
-        public async Task<Client[]> GetAll() => await _clientContext.Clients.AsQueryable().OrderBy(x => x.Id).ToArrayAsync();
+        // public async Task<Client[]> GetAll() => await _clientContext.Clients.AsQueryable().ToArrayAsync();
+        public async Task<Client[]> GetAll() => await _clientContext.Clients.ToArrayAsync();
         public async Task<Client> GetByCpf(string cpf) => await _clientContext.Clients.FirstOrDefaultAsync(x => x.Cpf == cpf);
         public async Task<Client> GetById(int id) => await _clientContext.Clients.FirstOrDefaultAsync(x => x.Id == id);
     }
