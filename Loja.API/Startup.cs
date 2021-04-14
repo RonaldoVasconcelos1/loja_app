@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Loja.Business.Contracts;
+using Loja.Business.Services;
+using Loja.Repository.Contracts;
+using Loja.Repository.Data;
+using Loja.Repository.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Loja.API
@@ -26,6 +25,12 @@ namespace Loja.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IGenericRepository, GenericRepository>();
+
+            // db in memory
+            services.AddDbContext<ClientContext>(opt => opt.UseInMemoryDatabase("Database"));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
