@@ -9,25 +9,24 @@ namespace Loja.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class ClientController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly IClientService _service;
+        private readonly IProductService _service;
 
-        public ClientController(IClientService service)
+        public ProductController(IProductService service)
         {
             _service = service;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Client model)
+        public async Task<IActionResult> Post(Product model)
         {
-            Console.WriteLine(model.Address);
             return Ok(await _service.Post(model));
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<Client> Put(Client model, int id)
+        public async Task<Product> Put(Product model, int id)
         {
             return await _service.Update(model, id);
         }
@@ -41,7 +40,7 @@ namespace Loja.API.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<Client[]>> GetAll()
+        public async Task<ActionResult<Product[]>> GetAll()
         {
             try
             {
@@ -60,23 +59,10 @@ namespace Loja.API.Controllers
 
         }
 
-        [HttpGet]
-        [Route("{cpf:string}")]
-        public async Task<ActionResult<Client>> GetByCpf(string cpf)
-        {
-            try
-            {
-                return Ok(await _service.GetByCpf(cpf));
-            }
-            catch (System.Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<Client> GetById(int id)
+        public async Task<Product> GetById(int id)
         {
             return await _service.GetById(id);
         }
